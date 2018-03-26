@@ -83,5 +83,16 @@ export default (model) => {
         })
         .catch(e => rej(e));
     }),
+
+    findManyByQuery: q => doOperation(
+      (coll) => {
+        const rv = coll.find(q).batchSize(30).project({ _id: 1, company: 1 }).toArray();
+        console.log(rv);
+        return rv;
+      })
+      .then((r) => {
+        console.log(r);
+        return (r && r.map(d => getReturnObject(d)));
+      }),
   });
 };
