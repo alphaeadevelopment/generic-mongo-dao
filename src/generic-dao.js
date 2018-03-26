@@ -34,11 +34,22 @@ const operateOnCollection = (url, collection, dbname) => (fn) => {
   });
 };
 
+const castToType = type => value => {
+  switch (type) {
+    case 'number':
+      return Number(value);
+    default:
+      return value;
+  }
+}
+
 export default (model) => {
   const collection = model.collectionName;
   const dbname = process.env.MONGO_DATABASE_NAME || 'test';
   const url = process.env.MONGODB_URL || `mongodb://localhost:27017/${dbname}`;
   const doOperation = operateOnCollection(url, collection, dbname);
+  const pkType = model.pkType || 'number';
+  const toPkType = castToType(pkType);
   console.log('creating dao for %s : %s : %s', url, dbname, collection);
   return ({
     add: (obj) => {
@@ -57,11 +68,14 @@ export default (model) => {
       );
     },
 
-    getOne: id => new Promise((res, rej) => {
+    findById: id => new Promise((res, rej) => {
+      console.log('findById %s', id);
       doOperation(
         (coll) => {
-          const query = { _id: Number(id) };
-          console.log('getOne query: %s', JSON.stringify(query, null, 2));
+          const typedId = toPkType(id);
+          console.log('findById %s', typedId);
+          const query = { _id: typedId };
+          console.log('findById query: %s', JSON.stringify(query, null, 2));
           return coll.findOne(query);
         })
         .then((r) => {
