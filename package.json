@@ -1,0 +1,35 @@
+{
+  "name": "oms-common",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config config/webpack.config.js"
+  },
+  "author": "Graham King <gking2224@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "lodash": "^4.17.5",
+    "material-ui": "^1.0.0-beta.38",
+    "mongodb": "^3.0.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "shortid": "^2.2.8"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^6.0.7",
+    "webpack": "^3.11.0"
+  }
+}
