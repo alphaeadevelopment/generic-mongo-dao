@@ -43,10 +43,10 @@ const castToType = type => value => {
   }
 }
 
-export default (model) => {
+export default (dbUrl, databaseName, model) => {
   const collection = model.collectionName;
-  const dbname = process.env.MONGO_DATABASE_NAME || 'test';
-  const url = process.env.MONGODB_URL || `mongodb://localhost:27017/${dbname}`;
+  const dbname = databaseName || 'test';
+  const url = dbUrl || `mongodb://localhost:27017/${dbname}`;
   const doOperation = operateOnCollection(url, collection, dbname);
   const pkType = model.pkType || 'number';
   const toPkType = castToType(pkType);
